@@ -1,0 +1,35 @@
+Name: Rajesh Kumar
+Email: rajesh.k@email.com
+Phone: +91-8765432109
+
+Summary:
+Data Scientist with 4 years of experience in machine learning and data analytics. Expertise in NLP, computer vision, and predictive modeling. Published 3 research papers in AI conferences.
+
+Skills:
+- Python, R, SQL
+- TensorFlow, PyTorch, scikit-learn
+- NLP (BERT, LSTM, Transformers)
+- Computer Vision (CNN, YOLO)
+- Tableau, Power BI
+
+Experience:
+Data Scientist | DataMind AI | 2022-Present
+- Developed fraud detection model with 95% accuracy
+- Implemented customer churn prediction saving $2M annually
+- Created interactive dashboards for stakeholders
+
+Junior Data Scientist | AnalyticsHub | 2020-2022
+- Built recommendation engine for e-commerce platform
+- Performed A/B testing and statistical analysis
+
+Education:
+M.Sc Data Science | BITS Pilani | 2020 | CGPA: 8.9
+B.E Computer Science | Osmania University | 2018 | CGPA: 8.5
+
+Certifications:
+- Google Professional Data Engineer
+- Deep Learning Specialization (DeepLearning.ai)
+
+Research:
+- "NLP for Resume Screening" - ICICT 2022
+- "Fairness in AI Recruitment" - AIES 2023

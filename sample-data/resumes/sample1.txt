@@ -1,0 +1,35 @@
+Name: Priya Sharma
+Email: priya.sharma@email.com
+Phone: +91-9876543210
+
+Summary:
+Experienced Software Engineer with 5+ years in full-stack development. Proficient in Python, React, and cloud technologies (AWS). Led team of 4 developers for e-commerce platform migration.
+
+Skills:
+- Python, JavaScript, TypeScript
+- React, Node.js, Django
+- AWS (EC2, S3, Lambda)
+- Docker, Kubernetes
+- SQL, MongoDB
+
+Experience:
+Senior Software Engineer | TechCorp | 2021-Present
+- Developed microservices architecture serving 1M+ users
+- Reduced API latency by 40% through optimization
+- Mentored 3 junior developers
+
+Software Engineer | WebSolutions | 2019-2021
+- Built responsive web applications using React
+- Implemented RESTful APIs with Node.js
+
+Education:
+M.Tech Computer Science | IIT Hyderabad | 2019 | CGPA: 8.7
+B.Tech Computer Science | JNTU Hyderabad | 2017 | CGPA: 8.9
+
+Certifications:
+- AWS Solutions Architect Associate
+- MongoDB Certified Developer
+
+Projects:
+- AI Resume Screener: Built ML model for automated screening (GitHub: 200+ stars)
+- E-commerce Platform: Full-stack app with 10K+ monthly users

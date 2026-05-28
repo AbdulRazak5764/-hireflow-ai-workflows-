@@ -1,0 +1,109 @@
+{
+  "name": "HireFlow AI - Recruitment Workflow",
+  "nodes": [
+    {
+      "name": "Form Trigger",
+      "type": "n8n-nodes-base.webhookTrigger",
+      "position": [250, 300],
+      "parameters": {
+        "path": "hireflow-application",
+        "method": "POST"
+      }
+    },
+    {
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [450, 300],
+      "parameters": {
+        "binaryPropertyName": "resume",
+        "extractOptions": {
+          "extractText": true
+        }
+      }
+    },
+    {
+      "name": "Validate PDF",
+      "type": "n8n-nodes-base.if",
+      "position": [650, 300],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$node[\"Extract from File\"].json[\"text\"]}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "AI Analysis - Gemini",
+      "type": "n8n-nodes-base.googleGemini",
+      "position": [850, 300],
+      "parameters": {
+        "model": "gemini-pro",
+        "promptType": "structured",
+        "systemPrompt": "You are an expert HR resume parser. Extract structured information. Output must be valid JSON with fields: full_name, email, skills (array), experience_years (float), education (array), certifications (array). Use null for missing fields.",
+        "userPrompt": "Resume text: {{$node[\"Extract from File\"].json[\"text\"]}}\nJob description: {{$node[\"Form Trigger\"].json[\"body\"][\"jobDescription\"]}}"
+      }
+    },
+    {
+      "name": "Code - Ranking",
+      "type": "n8n-nodes-base.code",
+      "position": [1050, 300],
+      "parameters": {
+        "jsCode": "const candidates = $input.all();\nconst weights = { skill: 0.40, experience: 0.30, education: 0.20, cultural: 0.10 };\n\ncandidates.forEach(c => {\n  const score = (c.json.skills_match || 0) * weights.skill +\n                (c.json.experience_relevance || 0) * weights.experience +\n                (c.json.education_fit || 0) * weights.education +\n                (c.json.cultural_indicators || 0) * weights.cultural;\n  c.json.match_score = Math.round(score * 100) / 100;\n});\n\ncandidates.sort((a, b) => b.json.match_score - a.json.match_score);\nreturn candidates.slice(0, 10);"
+      }
+    },
+    {
+      "name": "Validate Email Data",
+      "type": "n8n-nodes-base.if",
+      "position": [1250, 300],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$node[\"Code - Ranking\"].json[\"email\"]}}",
+              "operation": "matchesRegex",
+              "regex": "^[^@]+@[^@]+\\.[^@]+$"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "AI Email Generation",
+      "type": "n8n-nodes-base.googleGemini",
+      "position": [1450, 300],
+      "parameters": {
+        "model": "gemini-pro",
+        "systemPrompt": "Generate a professional, personalized interview invitation email. Tone: warm but professional. 100-150 words. No placeholders.",
+        "userPrompt": "Candidate name: {{$node[\"Code - Ranking\"].json[\"full_name\"]}}\nPosition: {{$node[\"Form Trigger\"].json[\"body\"][\"jobTitle\"]}}\nMatch score: {{$node[\"Code - Ranking\"].json[\"match_score\"]}}"
+      }
+    },
+    {
+      "name": "Send Email - Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "position": [1650, 300],
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "to": "={{$node[\"Code - Ranking\"].json[\"email\"]}}",
+        "subject": "Interview Invitation: {{$node[\"Form Trigger\"].json[\"body\"][\"jobTitle\"]}} at {{$node[\"Form Trigger\"].json[\"body\"][\"companyName\"]}}",
+        "body": "={{$node[\"AI Email Generation\"].json[\"response\"]}}"
+      }
+    }
+  ],
+  "connections": {
+    "Form Trigger": { "main": [[{ "node": "Extract from File", "type": "main" }]] },
+    "Extract from File": { "main": [[{ "node": "Validate PDF", "type": "main" }]] },
+    "Validate PDF": { "main": [[{ "node": "AI Analysis - Gemini", "type": "main" }]] },
+    "AI Analysis - Gemini": { "main": [[{ "node": "Code - Ranking", "type": "main" }]] },
+    "Code - Ranking": { "main": [[{ "node": "Validate Email Data", "type": "main" }]] },
+    "Validate Email Data": { "main": [[{ "node": "AI Email Generation", "type": "main" }]] },
+    "AI Email Generation": { "main": [[{ "node": "Send Email - Gmail", "type": "main" }]] }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
