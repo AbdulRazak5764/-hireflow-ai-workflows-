@@ -70,7 +70,7 @@ class HireFlowEvaluator:
         resumes = self.load_resumes()
         print(f"\nLoaded {len(resumes)} resumes")
         if not resumes:
-            print("❌ Error: No resumes loaded! Please ensure sample resumes exist in JSON format with a 'text' field.")
+            print("Error: No resumes loaded! Please ensure sample resumes exist in JSON format with a 'text' field.")
             return {}
         
         # Simulate expert scores (ground truth)
@@ -106,7 +106,7 @@ class HireFlowEvaluator:
         gemini_dpd = self.compute_dpd(gemini_scores.tolist(), gender_attr)
         
         # Print results
-        print("\n📊 **Baseline Comparison**")
+        print("\n**Baseline Comparison**")
         print("-" * 40)
         print(f"{'Metric':<20} {'TF-IDF':<12} {'HireFlow AI':<12}")
         print("-" * 40)
@@ -117,7 +117,7 @@ class HireFlowEvaluator:
         print(f"{'Pearson r':<20} {tfidf_corr:.3f}{'':<9} {gemini_corr:.3f}")
         print(f"{'DPD (fairness)':<20} {tfidf_dpd:.4f}{'':<9} {gemini_dpd:.4f}")
         
-        print("\n📈 **Improvement Summary**")
+        print("\n**Improvement Summary**")
         print("-" * 40)
         print(f"F1 Improvement: {(gemini_metrics['f1'] - tfidf_metrics['f1']) * 100:.1f}%")
         print(f"Correlation Improvement: {(gemini_corr - tfidf_corr) * 100:.1f}%")
@@ -147,7 +147,7 @@ class HireFlowEvaluator:
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(output, f, indent=2)
         
-        print(f"\n✅ Results saved to {output_file}")
+        print(f"\nResults saved to {output_file}")
         
         return output
 

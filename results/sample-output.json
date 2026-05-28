@@ -1,46 +1,24 @@
 {
   "tfidf": {
-    "accuracy": 0.71,
-    "precision": 0.74,
-    "recall": 0.68,
-    "f1": 0.71,
-    "pearson_r": 0.68,
-    "dpd": 0.045
+    "accuracy": 0.4,
+    "precision": 0.16,
+    "recall": 0.4,
+    "f1": 0.22857142857142856,
+    "pearson_r": -0.4083169694901479,
+    "dpd": 0.0
   },
   "gemini": {
-    "accuracy": 0.89,
-    "precision": 0.91,
-    "recall": 0.87,
-    "f1": 0.89,
-    "pearson_r": 0.87,
-    "dpd": 0.012,
-    "p_value": 0.002
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "pearson_r": 0.9821298499075848,
+    "dpd": 0.0,
+    "p_value": 4.3666374946177906e-07
   },
   "improvement": {
-    "f1_gain": 18.0,
-    "correlation_gain": 19.0,
-    "dpd_reduction": 73.3
-  },
-  "ranking_output": [
-    {
-      "rank": 1,
-      "name": "Priya Sharma",
-      "email": "priya.sharma@email.com",
-      "match_score": 0.94,
-      "skills_match": 0.95,
-      "experience_relevance": 0.92,
-      "education_fit": 0.90,
-      "cultural_indicators": 0.85
-    },
-    {
-      "rank": 2,
-      "name": "Rajesh Kumar",
-      "email": "rajesh.k@email.com",
-      "match_score": 0.87,
-      "skills_match": 0.90,
-      "experience_relevance": 0.85,
-      "education_fit": 0.88,
-      "cultural_indicators": 0.82
-    }
-  ]
+    "f1_gain": 77.14285714285715,
+    "correlation_gain": 139.04468193977326,
+    "dpd_reduction": 0.0
+  }
 }
